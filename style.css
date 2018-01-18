@@ -21,9 +21,9 @@ a
     float: right;
 
     width: 30vw;
-    height: 96vh;
-    margin-top: -1vw;
-    margin-left: 70vw;
+    height: 101vh;
+    right:0;
+    top: 0;
 
     background-color: #1e2126;
 }
@@ -152,15 +152,16 @@ div #title
 {
     font-size: 1em;
 
-    position: fixed;
-    top: 95vh;
-    left: 70.4vw;
+    position: absolute;
+    right:0;
+    bottom: 0;
+    /* top: 95vh;
+    left: 70.4vw; */
 
-    width: 29.5vw;
+    width: 30vw;
     height: 5vh;
 
     background-color: #191b20;
 
-    disply: flex;
     align-items: center;
 }
