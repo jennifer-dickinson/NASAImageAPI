@@ -117,6 +117,7 @@ searchButton.addEventListener('click', () => {
   if (history[searchInput.value]) delete history[searchInput.value];
   history[searchInput.value] = searchInput.value;
   window.localStorage.setItem("history", JSON.stringify(history));
+  window.localStorage.setItem("lastSearched", searchInput.value);
 
   populateHistoryBar();
 
@@ -130,14 +131,16 @@ searchInput.addEventListener('keypress', (k) => {
 
 searchInput.value = populateHistoryBar() || "";
 
-if (window.performance && window.performance.navigation.type == window.performance.navigation.TYPE_BACK_FORWARD)
-  { searchButton.click();
+if (window.performance && window.performance.navigation.type == window.performance.navigation.TYPE_BACK_FORWARD && window.localStorage.getItem("lastSearched"))
+  { searchInput.value = window.localStorage.getItem("lastSearched");
+    searchButton.click();
     setTimeout ( function () {
       var old = window.localStorage.getItem("scrollY");
       window.scrollTo(0, old);
     }, 40);
   }
 else content.appendChild(message());
+window.localStorage.removeItem("lastSearched");
 
 window.addEventListener('beforeunload', function(){
     window.localStorage.setItem("scrollY", window.scrollY);
