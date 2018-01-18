@@ -6,13 +6,9 @@ const searchInput = document.getElementById('searchInput');
 const searchButton = document.getElementById('searchButton');
 const content = document.getElementById('content');
 const historySec = document.getElementById('history');
+const footer = document.getElementById('footer');
 
 searchInput.setAttribute('autocomplete', 'on');
-
-
-var apikey = '1Cw8VOttiF5XBtwxBzveMKlsGQdQ5sn3gsHuZGYO';
-
-
 
 
 function search(query = "apollo") {
@@ -75,7 +71,12 @@ function populate (collection) {
 }
 
 function populateHistoryBar (history = (JSON.parse(window.localStorage.getItem("history")) || {})) {
-  historySec.innerText = "History: ";
+  historySec.innerText = "";
+
+  var hstart = document.createElement('p');
+  hstart.innerText = "Search history: ";
+  historySec.appendChild(hstart);
+
   var order = Object.keys(history).reverse();
   for (var i = 0; i < 10 && i < order.length; i++) {
     let term = document.createElement('p');
@@ -111,3 +112,5 @@ searchInput.addEventListener('keypress', (k) => {
 
 if (searchInput.value = populateHistoryBar() || "")
   searchButton.click();
+
+// populateHistoryBar();

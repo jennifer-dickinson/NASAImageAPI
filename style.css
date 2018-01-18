@@ -1,60 +1,75 @@
 body
 {
     font-family: monospace;
+    font-size: 12px;
 
     color: white;
-    background-color: #272727;
+    background-color: #24272e;
 }
 
-a {
-  border:none;
-  text-decoration: none;
+a
+{
+    text-decoration: none;
+
+    border: none;
+}
+
+#header
+{
+    position: fixed;
+
+    float: right;
+
+    width: 30vw;
+    height: 96vh;
+    margin-top: -1vw;
+    margin-left: 70vw;
+
+    background-color: #1e2126;
 }
 
 #history
 {
-    display: inline;
+    display: block;
     overflow: hidden;
 
     width: 90%;
-    height: 1em;
 
     align-items: center;
 }
 
 #history p
 {
-
-    display: inline;
-
-    height: 1em;
-    margin: auto 1em auto 1em;
-
-    text-decoration: underline;
+    font-size: 1.5em;
+    text-decoration: none;
 }
 
 #container
 {
-    width: 90%;
+    width: 100%;
     height: auto;
-    margin: auto;
 
     text-align: center;
 }
 
 #content
 {
-    margin-top: 2%;
+    float: left;
+
+    width: 70vw;
+    min-height: 100vw;
 }
 
 .imageContainer
 {
-    display: inline-flex;
+    font-size: 2em;
+
+    display: inline-block;
     overflow: hidden;
 
-    width: 20vw;
+    width: 12vw;
     min-width: 75px;
-    height: 20vw;
+    height: 12vw;
     margin: 1% 1% 1% 1%;
     padding: 2%;
 
@@ -79,19 +94,21 @@ a {
 
     width: 100%;
     height: auto;
+    margin: 1vh 1vw 1vh 1vw;
 }
 /* #searchButton{
   width:10%;
 } */
 #searchInput
 {
-    width: 85%;
+    width: 50%;
 }
 
 #searchButton,
 #searchInput
 {
     font-family: inherit;
+    font-size: 1.5em;
 
     display: table-cell;
 
@@ -115,9 +132,9 @@ a {
 div #title
 {
     font-family: impact;
-    font-size: 3em;
+    font-size: 4vw;
 
-    margin-top: 5vw;
+    margin-top: 1vw;
 
     color: #fff;
 }
@@ -128,4 +145,16 @@ div #title
     height: 100%;
 
     text-align: center;
+}
+
+#footer {
+  position:fixed;
+  left: 70.4vw;
+  top: 95vh;
+  width:29.5vw;
+  height:5vh;
+  background-color: #191b20;
+  disply:flex;
+  align-items: center;
+  font-size:1em;
 }
