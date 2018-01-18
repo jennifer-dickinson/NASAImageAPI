@@ -41,6 +41,7 @@ a
 #history p
 {
     font-size: 1.5em;
+
     text-decoration: none;
 }
 
@@ -147,14 +148,19 @@ div #title
     text-align: center;
 }
 
-#footer {
-  position:fixed;
-  left: 70.4vw;
-  top: 95vh;
-  width:29.5vw;
-  height:5vh;
-  background-color: #191b20;
-  disply:flex;
-  align-items: center;
-  font-size:1em;
+#footer
+{
+    font-size: 1em;
+
+    position: fixed;
+    top: 95vh;
+    left: 70.4vw;
+
+    width: 29.5vw;
+    height: 5vh;
+
+    background-color: #191b20;
+
+    disply: flex;
+    align-items: center;
 }
