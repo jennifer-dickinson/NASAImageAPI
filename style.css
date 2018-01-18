@@ -33,7 +33,7 @@ a
     display: block;
     overflow: hidden;
 
-    width: 90%;
+    width: 100%;
 
     align-items: center;
 }
@@ -41,7 +41,6 @@ a
 #history p
 {
     font-size: 1.5em;
-
     text-decoration: none;
 }
 
@@ -58,7 +57,7 @@ a
     float: left;
 
     width: 70vw;
-    min-height: 100vw;
+    height:auto;
 }
 
 .imageContainer
@@ -102,7 +101,7 @@ a
 } */
 #searchInput
 {
-    width: 50%;
+    width: 70%;
 }
 
 #searchButton,
@@ -132,8 +131,8 @@ a
 
 div #title
 {
-    font-family: impact;
-    font-size: 4vw;
+    /* font-family: impact; */
+    font-size: 2vw;
 
     margin-top: 1vw;
 
@@ -159,7 +158,9 @@ div #title
     left: 70.4vw; */
 
     width: 30vw;
-    height: 5vh;
+    min-height: 5vh;
+    padding-top:8px;
+    padding-bottom:10px;
 
     background-color: #191b20;
 

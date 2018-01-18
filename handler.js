@@ -8,7 +8,17 @@ const content = document.getElementById('content');
 const historySec = document.getElementById('history');
 const footer = document.getElementById('footer');
 
-searchInput.setAttribute('autocomplete', 'on');
+function message (msg = `Welcome to a
+  NASA Image Search Engine
+  using the NASA API.`) {
+  let welcome = document.createElement('p');
+  welcome.innerText = msg;
+  welcome.style.fontSize="5em";
+  welcome.style.textAlign="left";
+  welcome.style.padding="1em";
+  searchInput.setAttribute('autocomplete', 'on');
+  return welcome;
+}
 
 
 function search(query = "apollo") {
@@ -32,41 +42,43 @@ function populate (collection) {
   b.setAttribute('clear', 'all');
   b.innerText = ' ';
 
-  for(let i = 0; i < items.length; i++) {
-    var {center, date_created, description, location, title} = items[i].data[0];
-    var info = `Title: ${title}
-    Location: ${location}
-    Date Created: ${date_created}
-    Description: ${description}`;
+  if(items.length > 0)
+    for(let i = 0; i < items.length; i++) {
+      var {center, date_created, description, location, title} = items[i].data[0];
+      var info = `Title: ${title}
+      Location: ${location}
+      Date Created: ${date_created}
+      Description: ${description}`;
 
-    var imgsrc = items[i].links[0].href;
+      var imgsrc = items[i].links[0].href;
 
-    var imageContainer = document.createElement('div');
+      var imageContainer = document.createElement('div');
 
-    imageContainer.setAttribute("class", "imageContainer");
-    imageContainer.setAttribute("style", `background: url('${imgsrc}') no-repeat center center / cover ;`);
-    imageContainer.setAttribute('id', i);
+      imageContainer.setAttribute("class", "imageContainer");
+      imageContainer.setAttribute("style", `background: url('${imgsrc}') no-repeat center center / cover ;`);
+      imageContainer.setAttribute('id', i);
 
-    imageContainer.addEventListener('mouseover', function () {
-      this.style.color = "rgba(255, 255, 255, 1.0)";
-      this.style.textShadow= '1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000';
+      imageContainer.addEventListener('mouseover', function () {
+        this.style.color = "rgba(255, 255, 255, 1.0)";
+        this.style.textShadow= '1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000';
 
-    });
-    imageContainer.addEventListener('mouseout', function () {
-      this.style.color = "rgba(255, 255, 255, 0.0)";
-      this.style.textShadow = "none";
-    });
+      });
+      imageContainer.addEventListener('mouseout', function () {
+        this.style.color = "rgba(255, 255, 255, 0.0)";
+        this.style.textShadow = "none";
+      });
 
-    imageContainer.innerText = title;
+      imageContainer.innerText = title;
 
-    var linker = document.createElement('a');
-    linker.href = imgsrc;
-    linker.appendChild(imageContainer);
+      var linker = document.createElement('a');
+      linker.href = imgsrc;
+      linker.appendChild(imageContainer);
 
 
-    content.appendChild(linker);
+      content.appendChild(linker);
 
-  }
+    }
+  else content.appendChild(message(`uh oh. no images found of '${searchInput.value}'.`));
 
 }
 
@@ -74,7 +86,13 @@ function populateHistoryBar (history = (JSON.parse(window.localStorage.getItem("
   historySec.innerText = "";
 
   var hstart = document.createElement('p');
-  hstart.innerText = "Search history: ";
+  hstart.innerText = "Search history: (Clear)";
+
+  hstart.addEventListener('click', function () {
+    window.localStorage.clear();
+    populateHistoryBar();
+  });
+
   historySec.appendChild(hstart);
 
   var order = Object.keys(history).reverse();
@@ -110,7 +128,17 @@ searchInput.addEventListener('keypress', (k) => {
   }
 });
 
-if (searchInput.value = populateHistoryBar() || "")
-  searchButton.click();
+searchInput.value = populateHistoryBar() || "";
 
-// populateHistoryBar();
+if (window.performance && window.performance.navigation.type == window.performance.navigation.TYPE_BACK_FORWARD)
+  { searchButton.click();
+    setTimeout ( function () {
+      var old = window.localStorage.getItem("scrollY");
+      window.scrollTo(0, old);
+    }, 40);
+  }
+else content.appendChild(message());
+
+window.addEventListener('beforeunload', function(){
+    window.localStorage.setItem("scrollY", window.scrollY);
+  });
