@@ -8,6 +8,12 @@ const content = document.getElementById('content');
 const historySec = document.getElementById('history');
 const footer = document.getElementById('footer');
 
+function removeChildren(node) {
+  while(node.lastChild) {
+    node.removeChild(node.lastChild);
+  }
+}
+
 function message (msg = `Welcome to a
   NASA Image Search Engine
   using the NASA API.`) {
@@ -36,7 +42,7 @@ function search(query = "apollo") {
 }
 
 function populate (collection) {
-  content.innerText = "";
+  removeChildren(content);
   let {links, items} = collection;
   let b = document.createElement('br');
   b.setAttribute('clear', 'all');
@@ -83,7 +89,7 @@ function populate (collection) {
 }
 
 function populateHistoryBar (history = (JSON.parse(window.localStorage.getItem("history")) || {})) {
-  historySec.innerText = "";
+  removeChildren(historySec);
 
   var hstart = document.createElement('p');
   hstart.innerText = "Search history: (Clear)";
@@ -118,7 +124,7 @@ searchButton.addEventListener('click', () => {
   history[searchInput.value] = searchInput.value;
   window.localStorage.setItem("history", JSON.stringify(history));
   window.localStorage.setItem("lastSearched", searchInput.value);
-
+  window.scrollTo(0, 0);
   populateHistoryBar();
 
 });
@@ -129,7 +135,7 @@ searchInput.addEventListener('keypress', (k) => {
   }
 });
 
-searchInput.value = populateHistoryBar() || "";
+populateHistoryBar();
 
 if (window.performance && window.performance.navigation.type == window.performance.navigation.TYPE_BACK_FORWARD && window.localStorage.getItem("lastSearched"))
   { searchInput.value = window.localStorage.getItem("lastSearched");
@@ -137,11 +143,12 @@ if (window.performance && window.performance.navigation.type == window.performan
     setTimeout ( function () {
       var old = window.localStorage.getItem("scrollY");
       window.scrollTo(0, old);
-    }, 40);
+    }, 100);
   }
-else content.appendChild(message());
-window.localStorage.removeItem("lastSearched");
-
+else {
+  content.appendChild(message());
+  window.localStorage.removeItem("lastSearched");
+}
 window.addEventListener('beforeunload', function(){
     window.localStorage.setItem("scrollY", window.scrollY);
   });
